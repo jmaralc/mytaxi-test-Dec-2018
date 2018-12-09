@@ -12,8 +12,10 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "latest",
+    "@types/mathjs": "^4.4.3",
     "create-react-app": "latest",
     "cross-fetch": "^2.2.3",
+    "mathjs": "^5.4.0",
     "react": "latest",
     "react-dom": "latest",
     "react-redux": "latest",

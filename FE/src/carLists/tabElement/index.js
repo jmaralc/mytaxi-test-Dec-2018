@@ -14,7 +14,7 @@ import * as helpers from './helpers'
 import EnhancedTableHead from './enhancedTableHead'
 
 
-class TabElement extends React.Component {
+class TabularElement extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -140,6 +140,9 @@ class TabElement extends React.Component {
                             if(fieldName==="confort"){
                                 return <TableCell numeric={field.numeric}>{helpers.parseConfort(dataElement[fieldName])}</TableCell>
                             }
+                            if(fieldName==="longitude" || fieldName==="latitude"){
+                                return <TableCell numeric={field.numeric}>{helpers.getDMS(dataElement[fieldName],fieldName.slice(0,3))}</TableCell>
+                            }
                             return(<TableCell numeric={field.numeric}>{dataElement[fieldName]}</TableCell>)
                         })
                     }
@@ -174,4 +177,4 @@ class TabElement extends React.Component {
   }
 }
 
-export default TabElement;
+export default TabularElement;

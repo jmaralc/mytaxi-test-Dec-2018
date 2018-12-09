@@ -6,7 +6,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import TabElement from './tabElement'
+import TabularElement from './tabElement'
+import MapElement from './mapElement'
 import LoadingElement from './loadingElement'
 import ErrorElement from './errorElement'
 import * as actions from "./actions";
@@ -39,7 +40,7 @@ class CarLists extends React.Component {
     };
 
     render(){
-        const { classes,dispatch,isFetching,data,error } = this.props;
+        const { classes,isFetching,data,error } = this.props;
         const { value, type } = this.state;
         
         const toRender = ()=>{
@@ -56,10 +57,13 @@ class CarLists extends React.Component {
             }
             else
             {
-                return <TabElement
+                return type==="map"?<MapElement
+                    type={type}
+                    classes={classes}
+                    data = {data}
+                />:<TabularElement
                 type={type}
                 classes={classes}
-                dispatch = {dispatch}
                 data = {data}
                 />
 

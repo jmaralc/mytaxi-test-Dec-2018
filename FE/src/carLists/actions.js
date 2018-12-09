@@ -41,7 +41,6 @@ export const  carList = (carList)=> dispatch => {
             .then(payload=>car2go=payload.placemarks)
             .then(()=>{ 
                 let payload = mytaxi.map(element=>{
-                    console.log("mytaxi")
                     return{
                         id: element.id,
                         longitude: element.coordinate.longitude,
@@ -53,7 +52,6 @@ export const  carList = (carList)=> dispatch => {
                 })
                 payload = payload.concat(
                     car2go.map(element=>{
-                        console.log("car2go")
                         return{
                             id: element.id,
                             longitude: element.coordinates[0],
