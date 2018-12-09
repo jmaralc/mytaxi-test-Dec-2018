@@ -28,10 +28,13 @@ class MapElement extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            visibleMarkers:[],
+            highlightedMarkers:[],
             map: null,
             center: helpers.getAvgCenter(props.data),
             data: props.data
           };
+        this.handleSelectItems = this.handleSelectItems.bind(this)
     }
 
     componentDidMount() {
@@ -39,11 +42,11 @@ class MapElement extends React.Component {
         center: this.state.center,
         zoom: 10
       });
-      this.state.data.map(element=>{ 
+      let visibleMarkers = this.state.data.map(element=>{ 
         return new window.google.maps.Marker({
             position: {lat:element.latitude,lng:element.longitude},
             map: map,
-            title: `Car id: ${element.id}, Fuel: ${element.fuel?element.fuel:'No limit'}`,
+            title: `${element.id}`,
             icon: {
                 path: icon_path,
                 scale: 1,
@@ -55,9 +58,32 @@ class MapElement extends React.Component {
             },
           })
         })
-      this.setState({map})
+      this.setState({map,visibleMarkers})
     }
   
+
+    handleSelectItems=(selectedItems)=>{
+            selectedItems.map(selectedElement=>{
+                this.state.visibleMarkers.map(marker=>{
+                    if(marker.title===String(selectedElement)){
+                        let icon = marker.getIcon()
+                        icon.fillColor="#c62828"
+                        marker.setZIndex(2000)
+                        marker.setIcon(icon)
+                    }
+                    else{
+                        let type = this.state.data.filter(element=>String(element.id)===marker.title )
+                        
+                        let icon = marker.getIcon()
+                        icon.fillColor=type[0].service==="mytaxi"?'#FDC300':'#00a0e1'
+                        marker.setZIndex(2)
+                        marker.setIcon(icon)
+                    }
+                
+                })
+            })    
+    }
+
     render() {
         const{classes} = this.props
         const{data} = this.state
@@ -71,8 +97,8 @@ class MapElement extends React.Component {
             </Card>
             <TabularElement
             type={"both"}
-            classes={classes}
             data = {data}
+            onSelectItems={this.handleSelectItems}
             />
         </div>
 

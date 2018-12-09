@@ -48,7 +48,7 @@ class TabularElement extends React.Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState(state => ({ selected: state.data.map(element => element.id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -71,7 +71,8 @@ class TabularElement extends React.Component {
         selected.slice(selectedIndex + 1)
       );
     }
-
+    
+    this.props.onSelectItems(newSelected)
     this.setState({ selected: newSelected });
   };
 

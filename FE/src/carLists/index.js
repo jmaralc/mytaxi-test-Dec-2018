@@ -39,6 +39,9 @@ class CarLists extends React.Component {
         this.props.dispatch(actions.carList(type));
     };
 
+    handleSelectItems = ()=>{
+        console.log("Nothing to do")
+    }
     render(){
         const { classes,isFetching,data,error } = this.props;
         const { value, type } = this.state;
@@ -65,6 +68,7 @@ class CarLists extends React.Component {
                 type={type}
                 classes={classes}
                 data = {data}
+                onSelectItems={this.handleSelectItems}
                 />
 
             }
