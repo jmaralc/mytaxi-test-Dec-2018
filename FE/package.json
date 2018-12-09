@@ -1,0 +1,37 @@
+{
+  "name": "mytaxi",
+  "version": "0.0.1",
+  "description": "Creating the new generation of mobility in the city",
+  "main": "index.js",
+  "repository": {
+    "url": "",
+    "type": "git"
+  },
+  "author": "Javier Martinez <javmardeveloper@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "latest",
+    "create-react-app": "latest",
+    "cross-fetch": "^2.2.3",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-redux": "latest",
+    "react-router-dom": "latest",
+    "react-router-redux": "latest",
+    "react-scripts": "latest",
+    "redux": "latest",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
+  },
+  "scripts": {
+    "start": "NODE_PATH=./src react-scripts start",
+    "build": "NODE_PATH=./src react-scripts build"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
