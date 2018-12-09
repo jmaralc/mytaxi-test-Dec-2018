@@ -10,7 +10,7 @@ import {icon_path} from '../../constants/maps'
 import TabularElement from '../tabElement'
 
 const styles = theme => ({
-    card: {
+    mapCard: {
         margin:10,
         minWidth: 275,
       },
@@ -64,7 +64,7 @@ class MapElement extends React.Component {
 
       return (
         <div>
-            <Card className={classes.card}>
+            <Card className={classes.mapCard}>
             <CardContent>
                 <div className={classes.mapDiv} id="map" />
             </CardContent>
