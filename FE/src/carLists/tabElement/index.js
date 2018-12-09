@@ -1,4 +1,5 @@
 import React from "react";
+import { withStyles } from '@material-ui/core/styles';
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -13,6 +14,12 @@ import * as helpers from './helpers'
 
 import EnhancedTableHead from './enhancedTableHead'
 
+const styles = theme => ({
+    table: {
+        margin:10,
+        minWidth: 275,
+      }
+})
 
 class TabularElement extends React.Component {
     constructor(props) {
@@ -177,4 +184,4 @@ class TabularElement extends React.Component {
   }
 }
 
-export default TabularElement;
+export default withStyles(styles)(TabularElement);

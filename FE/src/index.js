@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
 
-import HkTheme from './theme'
+import MyTheme from './theme'
 import store from './store'
 import NoMatch from './noMatch'
 import CarLists from './carLists'
@@ -19,7 +19,7 @@ class App extends React.Component {
   
   render(){
     return(
-      <MuiThemeProvider theme={HkTheme}>
+      <MuiThemeProvider theme={MyTheme}>
         <Switch>
           <Route exact path="/" component={CarLists} />
           <Route path="*" component={NoMatch}/>

@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 import * as helpers from './helpers'
 import {icon_path} from '../../constants/maps'
+import TabularElement from '../tabElement'
 
 const styles = theme => ({
     card: {
@@ -59,13 +60,21 @@ class MapElement extends React.Component {
   
     render() {
         const{classes} = this.props
+        const{data} = this.state
 
       return (
-        <Card className={classes.card}>
-        <CardContent>
-            <div className={classes.mapDiv} id="map" />
-        </CardContent>
-        </Card>
+        <div>
+            <Card className={classes.card}>
+            <CardContent>
+                <div className={classes.mapDiv} id="map" />
+            </CardContent>
+            </Card>
+            <TabularElement
+            type={"both"}
+            classes={classes}
+            data = {data}
+            />
+        </div>
 
       );
     }
