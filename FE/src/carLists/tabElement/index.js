@@ -121,7 +121,7 @@ class TabularElement extends React.Component {
                       key={dataElement.id}
                       selected={isSelected}
                     >
-                    <TableCell padding="checkbox">
+                    <TableCell padding="checkbox" key={`chbx_${dataElement.id}`}>
                         <Checkbox checked={isSelected} />
                     </TableCell>
                     {
@@ -129,14 +129,14 @@ class TabularElement extends React.Component {
                             let fieldName = field.id
                             if(fieldName==="id"){
                                 return(
-                                <TableCell component="th" scope="row" padding="none">
+                                <TableCell key={`${fieldName}_${dataElement.id}`} component="th" scope="row" padding="none">
                                     {dataElement[fieldName]}
                                 </TableCell>
                                 )
                             }
                             if (field.chirp){
                                 return(
-                                    <TableCell >
+                                    <TableCell key={`${fieldName}_${dataElement.id}`}>
                                     <Chip label={dataElement[fieldName]} 
                                       className={classes.chip} 
                                       color={dataElement[fieldName]==="ACTIVE" || dataElement[fieldName]==="GOOD" ||  dataElement[fieldName]==="mytaxi"?"primary":"secondary"}
@@ -145,12 +145,12 @@ class TabularElement extends React.Component {
                                 )
                             }
                             if(fieldName==="confort"){
-                                return <TableCell numeric={field.numeric}>{helpers.parseConfort(dataElement[fieldName])}</TableCell>
+                                return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{helpers.parseConfort(dataElement[fieldName])}</TableCell>
                             }
                             if(fieldName==="longitude" || fieldName==="latitude"){
-                                return <TableCell numeric={field.numeric}>{helpers.getDMS(dataElement[fieldName],fieldName.slice(0,3))}</TableCell>
+                                return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{helpers.getDMS(dataElement[fieldName],fieldName.slice(0,3))}</TableCell>
                             }
-                            return(<TableCell numeric={field.numeric}>{dataElement[fieldName]}</TableCell>)
+                            return(<TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{dataElement[fieldName]}</TableCell>)
                         })
                     }
                     </TableRow>
