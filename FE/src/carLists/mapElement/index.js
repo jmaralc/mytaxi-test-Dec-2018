@@ -75,7 +75,7 @@ class MapElement extends React.Component {
 
         const icon = marker.getIcon();
         icon.fillColor = type[0].service === 'mytaxi' ? '#FDC300' : '#00a0e1';
-        marker.setZIndex(2);
+        marker.setZIndex(Math.floor(Math.random() * Math.floor(100)));
         marker.setIcon(icon);
       }
       return null;
