@@ -6,6 +6,7 @@ const initialState = {
   isFetching: false,
   data: null,
   error: false,
+  classes: {},
 };
 
 export default (state = initialState, action) => {
@@ -22,7 +23,8 @@ export default (state = initialState, action) => {
           data: action.payload.poiList,
           error: false,
         };
-      } if (action.carList === 'car2go') {
+      }
+      if (action.carList === 'car2go') {
         return {
           ...state,
           isFetching: action.isFetching,
@@ -31,7 +33,10 @@ export default (state = initialState, action) => {
         };
       }
       return {
-        ...state, isFetching: action.isFetching, data: action.payload, error: false,
+        ...state,
+        isFetching: action.isFetching,
+        data: action.payload,
+        error: false,
       };
 
     case CARS_LIST_FAILURE:

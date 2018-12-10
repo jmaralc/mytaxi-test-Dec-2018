@@ -195,9 +195,8 @@ class TabularElement extends React.Component {
 
 TabularElement.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
-  type: PropTypes.objectOf(PropTypes.any).isRequired,
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
-  onSelectItems: PropTypes.objectOf(PropTypes.any).isRequired,
+  type: PropTypes.string.isRequired,
+  onSelectItems: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(TabularElement);

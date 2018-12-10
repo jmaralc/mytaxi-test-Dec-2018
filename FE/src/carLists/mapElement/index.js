@@ -62,6 +62,7 @@ class MapElement extends React.Component {
 
   handleSelectItems = (selectedItems) => {
     // TODO: This is work in progress
+    // It will be cool to keep working on similar features with you :)
     const { visibleMarkers, data } = this.state;
 
     selectedItems.map(selectedElement => visibleMarkers.map((marker) => {
@@ -101,7 +102,6 @@ class MapElement extends React.Component {
 
 MapElement.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withStyles(styles)(MapElement);

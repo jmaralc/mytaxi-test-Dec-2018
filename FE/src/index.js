@@ -17,7 +17,7 @@ function App() {
   return (
     <MuiThemeProvider theme={MyTheme}>
       <Switch>
-        <Route exact path="/" component={CarLists} />
+        <Route exact path="/" render={props => <CarLists {...props} />} />
         <Route path="*" component={NoMatch} />
       </Switch>
     </MuiThemeProvider>
