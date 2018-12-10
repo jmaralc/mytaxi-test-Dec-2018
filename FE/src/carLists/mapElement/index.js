@@ -61,6 +61,7 @@ class MapElement extends React.Component {
   }
 
   handleSelectItems = (selectedItems) => {
+    // TODO: This is work in progress
     const { visibleMarkers, data } = this.state;
 
     selectedItems.map(selectedElement => visibleMarkers.map((marker) => {

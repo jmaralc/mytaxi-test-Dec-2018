@@ -73,6 +73,8 @@ class TabularElement extends React.Component {
         selected.slice(selectedIndex + 1),
       );
     }
+    // TODO: This is work in progress linked to the one at mapElement
+    // But the app is functional
     onSelectItems(newSelected);
     this.setState({ selected: newSelected });
   };
