@@ -87,7 +87,7 @@ export const generateRows = (carListType) => {
           label: 'Type',
           chirp: false,
         },
-      ];    
+      ];
     case 'car2go':
       return [
         {
