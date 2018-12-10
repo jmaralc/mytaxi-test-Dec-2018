@@ -1,22 +1,13 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { routerReducer } from 'react-router-redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { routerReducer } from 'react-router-redux';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 
-import mainAppReducer from './carLists/reducer'
+import mainAppReducer from './carLists/reducer';
 
-import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger'
+const loggerMiddleware = createLogger();
 
-const loggerMiddleware = createLogger()
+const rootReducer = combineReducers({ routing: routerReducer, mainAppReducer });
 
-const rootReducer = combineReducers({
-  routing: routerReducer,mainAppReducer
-})
-
-const store = createStore(
-    rootReducer,
-    applyMiddleware(
-        thunkMiddleware,
-        loggerMiddleware
-    )
-)
-export default store
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, loggerMiddleware));
+export default store;

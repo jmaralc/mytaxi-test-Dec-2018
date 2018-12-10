@@ -1,41 +1,36 @@
-import React from 'react'
-import {render} from 'react-dom'
+import React from 'react';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
+import MyTheme from './theme';
+import store from './store';
+import NoMatch from './noMatch';
+import CarLists from './carLists';
 
-import MyTheme from './theme'
-import store from './store'
-import NoMatch from './noMatch'
-import CarLists from './carLists'
-
-import './main.css'
+import './main.css';
 
 const rootElement = document.querySelector('#root');
 
-
-class App extends React.Component {
-  
-  render(){
-    return(
-      <MuiThemeProvider theme={MyTheme}>
-        <Switch>
-          <Route exact path="/" component={CarLists} />
-          <Route path="*" component={NoMatch}/>
-        </Switch>
-      </MuiThemeProvider>
-    )
-  }
+function App() {
+  return (
+    <MuiThemeProvider theme={MyTheme}>
+      <Switch>
+        <Route exact path="/" component={CarLists} />
+        <Route path="*" component={NoMatch} />
+      </Switch>
+    </MuiThemeProvider>
+  );
 }
 
-if (rootElement){
+if (rootElement) {
   render(
     <Provider store={store}>
       <BrowserRouter>
-        <App/>
+        <App />
       </BrowserRouter>
     </Provider>,
-    rootElement
-  )
+    rootElement,
+  );
 }

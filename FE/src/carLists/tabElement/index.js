@@ -1,52 +1,53 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 
-import * as helpers from './helpers'
+import * as helpers from './helpers';
 
-import EnhancedTableHead from './enhancedTableHead'
+import EnhancedTableHead from './enhancedTableHead';
 
-const styles = theme => ({
-    table: {
-        margin:10,
-        minWidth: 275,
-      }
-})
+const styles = {
+  table: {
+    margin: 10,
+    minWidth: 275,
+  },
+};
 
 class TabularElement extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            order: "asc",
-            orderBy: "id",
-            selected: [],
-            data: helpers.createData(props.type,props.data),
-            page: 0,
-            rowsPerPage: 10
-          };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      order: 'asc',
+      orderBy: 'id',
+      selected: [],
+      data: helpers.createData(props.type, props.data),
+      page: 0,
+      rowsPerPage: 10,
+    };
+  }
 
 
   handleRequestSort = (event, property) => {
-    const orderBy = property;
-    let order = "desc";
+    const { order, orderBy } = this.state;
+    let localOrder = 'desc';
 
-    if (this.state.orderBy === property && this.state.order === "desc") {
-      order = "asc";
+    if (orderBy === property && order === 'desc') {
+      localOrder = 'asc';
     }
 
-    this.setState({ order, orderBy });
+    this.setState({ order: localOrder, orderBy: property });
   };
 
-  handleSelectAllClick = event => {
+  handleSelectAllClick = (event) => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(element => element.id) }));
       return;
@@ -56,6 +57,7 @@ class TabularElement extends React.Component {
 
   handleClick = (event, id) => {
     const { selected } = this.state;
+    const { onSelectItems } = this.props;
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
@@ -68,11 +70,10 @@ class TabularElement extends React.Component {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+        selected.slice(selectedIndex + 1),
       );
     }
-    
-    this.props.onSelectItems(newSelected)
+    onSelectItems(newSelected);
     this.setState({ selected: newSelected });
   };
 
@@ -116,21 +117,21 @@ class TabularElement extends React.Component {
                     <TableRow
                       hover
                       onClick={event => this.handleClick(event, dataElement.id)}
-                      role="checkbox"
+                      role='checkbox'
                       aria-checked={isSelected}
                       tabIndex={-1}
                       key={dataElement.id}
                       selected={isSelected}
                     >
-                    <TableCell padding="checkbox" key={`chbx_${dataElement.id}`}>
+                    <TableCell padding='checkbox' key={`chbx_${dataElement.id}`}>
                         <Checkbox checked={isSelected} />
                     </TableCell>
                     {
                         rowsInfo.map(field=>{
                             let fieldName = field.id
-                            if(fieldName==="id"){
+                            if(fieldName==='id'){
                                 return(
-                                <TableCell key={`${fieldName}_${dataElement.id}`} component="th" scope="row" padding="none">
+                                <TableCell key={`${fieldName}_${dataElement.id}`} component='th' scope='row' padding='none'>
                                     {dataElement[fieldName]}
                                 </TableCell>
                                 )
@@ -140,15 +141,15 @@ class TabularElement extends React.Component {
                                     <TableCell key={`${fieldName}_${dataElement.id}`}>
                                     <Chip label={dataElement[fieldName]} 
                                       className={classes.chip} 
-                                      color={dataElement[fieldName]==="ACTIVE" || dataElement[fieldName]==="GOOD" ||  dataElement[fieldName]==="mytaxi"?"primary":"secondary"}
+                                      color={dataElement[fieldName]==='ACTIVE' || dataElement[fieldName]==='GOOD' ||  dataElement[fieldName]==='mytaxi'?'primary':'secondary'}
                                       />
                                   </TableCell>
                                 )
                             }
-                            if(fieldName==="confort"){
+                            if(fieldName==='confort'){
                                 return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{helpers.parseConfort(dataElement[fieldName])}</TableCell>
                             }
-                            if(fieldName==="longitude" || fieldName==="latitude"){
+                            if(fieldName==='longitude' || fieldName==='latitude'){
                                 return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{helpers.getDMS(dataElement[fieldName],fieldName.slice(0,3))}</TableCell>
                             }
                             return(<TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{dataElement[fieldName]}</TableCell>)
@@ -167,15 +168,15 @@ class TabularElement extends React.Component {
         </div>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 50]}
-          component="div"
+          component='div'
           count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "Previous Page"
+            'aria-label': 'Previous Page'
           }}
           nextIconButtonProps={{
-            "aria-label": "Next Page"
+            'aria-label': 'Next Page'
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
@@ -184,5 +185,13 @@ class TabularElement extends React.Component {
     );
   }
 }
+
+TabularElement.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
+  type: PropTypes.objectOf(PropTypes.any).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
+  error: PropTypes.objectOf(PropTypes.any).isRequired,
+  dispatch: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default withStyles(styles)(TabularElement);

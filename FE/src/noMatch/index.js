@@ -1,38 +1,36 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
-    card: {
-        margin:50,
-        minWidth: 275,
-      }
-})
+const styles = {
+  card: {
+    margin: 50,
+    minWidth: 275,
+  },
+  title: {
+    fontSize: 14,
+  },
+};
 
 function NoMatch(props) {
-    const { classes } = props;
-    return(
-        <Card className={classes.card}>
-        <CardContent>
+  const { classes } = props;
+  return (
+    <Card className={classes.card}>
+      <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-            ELEMENT NOT FOUND
+          ELEMENT NOT FOUND
         </Typography>
-        <Typography variant="h5" component="h2">
-
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-
-        </Typography>
-        <Typography component="p">
-
-        </Typography>
-        </CardContent>
-        </Card>
-    )
+      </CardContent>
+    </Card>
+  );
 }
+
+NoMatch.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default withStyles(styles)(NoMatch);
