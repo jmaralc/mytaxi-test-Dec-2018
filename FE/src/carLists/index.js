@@ -82,11 +82,12 @@ class CarLists extends React.Component {
 
 CarLists.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
-  isFetching: PropTypes.objectOf(PropTypes.any).isRequired,
+  isFetching: PropTypes.bool.isRequired,
   data: PropTypes.objectOf(PropTypes.any).isRequired,
   error: PropTypes.objectOf(PropTypes.any).isRequired,
-  dispatch: PropTypes.objectOf(PropTypes.any).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
+
 
 const mapStateToProps = state => ({
   isFetching: state.mainAppReducer.isFetching,

@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 
-import * as helpers from './helpers';
+import * as helpers from '../helpers';
 
 import EnhancedTableHead from './enhancedTableHead';
 

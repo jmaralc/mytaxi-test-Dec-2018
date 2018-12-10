@@ -1,5 +1,5 @@
 import SERVER from '../config';
-import computeConfort from './helpers';
+import { computeConfort } from './helpers';
 
 export const CARS_LIST = 'CARS_LIST';
 export const CARS_LIST_REQUEST = 'CARS_LIST_REQUEST';
