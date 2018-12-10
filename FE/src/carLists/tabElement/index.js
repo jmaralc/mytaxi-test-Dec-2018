@@ -17,7 +17,7 @@ import EnhancedTableHead from './enhancedTableHead';
 
 const styles = {
   table: {
-    margin: 10,
+    marginTop: 20,
     minWidth: 275,
   },
 };
@@ -81,79 +81,84 @@ class TabularElement extends React.Component {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = event => {
+  handleChangeRowsPerPage = (event) => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
+  isSelected = (id) => {
+    const { selected } = this.state;
+    return (selected.indexOf(id) !== -1);
+  };
 
   render() {
     const { classes, type } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
-    const emptyRows =
-      rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-    const rowsInfo = helpers.generateRows(type)
-    
+    const {
+      data, order, orderBy, selected, rowsPerPage, page,
+    } = this.state;
+
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const rowsInfo = helpers.generateRows(type);
+
     return (
       <Paper className={classes.root}>
-        
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
-                carListType={type}
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={this.handleSelectAllClick}
-                onRequestSort={this.handleRequestSort}
-                rowCount={data.length}
+              carListType={type}
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={this.handleSelectAllClick}
+              onRequestSort={this.handleRequestSort}
+              rowCount={data.length}
             />
             <TableBody>
               {helpers.stableSort(data, helpers.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(dataElement => {
+                .map((dataElement) => {
                   const isSelected = this.isSelected(dataElement.id);
                   return (
                     <TableRow
                       hover
                       onClick={event => this.handleClick(event, dataElement.id)}
-                      role='checkbox'
+                      role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
                       key={dataElement.id}
                       selected={isSelected}
                     >
-                    <TableCell padding='checkbox' key={`chbx_${dataElement.id}`}>
+                      <TableCell padding="checkbox" key={`chbx_${dataElement.id}`}>
                         <Checkbox checked={isSelected} />
-                    </TableCell>
-                    {
-                        rowsInfo.map(field=>{
-                            let fieldName = field.id
-                            if(fieldName==='id'){
-                                return(
-                                <TableCell key={`${fieldName}_${dataElement.id}`} component='th' scope='row' padding='none'>
-                                    {dataElement[fieldName]}
+                      </TableCell>
+                      {
+                          rowsInfo.map((field) => {
+                            const fieldName = field.id;
+                            if (fieldName === 'id') {
+                              return (
+                                <TableCell key={`${fieldName}_${dataElement.id}`} component="th" scope="row" padding="none">
+                                  {dataElement[fieldName]}
                                 </TableCell>
-                                )
+                              );
                             }
-                            if (field.chirp){
-                                return(
-                                    <TableCell key={`${fieldName}_${dataElement.id}`}>
-                                    <Chip label={dataElement[fieldName]} 
-                                      className={classes.chip} 
-                                      color={dataElement[fieldName]==='ACTIVE' || dataElement[fieldName]==='GOOD' ||  dataElement[fieldName]==='mytaxi'?'primary':'secondary'}
-                                      />
-                                  </TableCell>
-                                )
+                            if (field.chirp) {
+                              return (
+                                <TableCell key={`${fieldName}_${dataElement.id}`}>
+                                  <Chip
+                                    label={dataElement[fieldName]}
+                                    className={classes.chip}
+                                    color={dataElement[fieldName] === 'ACTIVE' || dataElement[fieldName] === 'GOOD' || dataElement[fieldName] === 'mytaxi' ? 'primary' : 'secondary'}
+                                  />
+                                </TableCell>
+                              );
                             }
-                            if(fieldName==='confort'){
-                                return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{helpers.parseConfort(dataElement[fieldName])}</TableCell>
+                            if (fieldName === 'confort') {
+                              return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{helpers.parseConfort(dataElement[fieldName])}</TableCell>;
                             }
-                            if(fieldName==='longitude' || fieldName==='latitude'){
-                                return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{helpers.getDMS(dataElement[fieldName],fieldName.slice(0,3))}</TableCell>
+                            if (fieldName === 'longitude' || fieldName === 'latitude') {
+                              return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{helpers.getDMS(dataElement[fieldName], fieldName.slice(0, 3))}</TableCell>;
                             }
-                            return(<TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{dataElement[fieldName]}</TableCell>)
-                        })
+                            return <TableCell key={`${fieldName}_${dataElement.id}`} numeric={field.numeric}>{dataElement[fieldName]}</TableCell>;
+                          })
                     }
                     </TableRow>
                   );
@@ -168,15 +173,15 @@ class TabularElement extends React.Component {
         </div>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 50]}
-          component='div'
+          component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            'aria-label': 'Previous Page'
+            'aria-label': 'Previous Page',
           }}
           nextIconButtonProps={{
-            'aria-label': 'Next Page'
+            'aria-label': 'Next Page',
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
@@ -190,8 +195,7 @@ TabularElement.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   type: PropTypes.objectOf(PropTypes.any).isRequired,
   data: PropTypes.objectOf(PropTypes.any).isRequired,
-  error: PropTypes.objectOf(PropTypes.any).isRequired,
-  dispatch: PropTypes.objectOf(PropTypes.any).isRequired,
+  onSelectItems: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withStyles(styles)(TabularElement);
